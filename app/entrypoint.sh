@@ -1,18 +1,18 @@
 #!/bin/sh
 
-# if [ "$DATABASE" = "postgres" ]
-# then
-#     echo "Waiting for postgres..."
+if [ "$DATABASE" = "postgres" ]
+then
+    echo "Waiting for postgres..."
 
-#     while ! nc -z $SQL_HOST $SQL_PORT; do
-#       sleep 0.1
-#     done
+    while ! nc -z $SQL_HOST $SQL_PORT; do
+      sleep 0.1
+    done
 
-#     echo "PostgreSQL started"
-# fi
+    echo "PostgreSQL started"
+fi
 
-# python manage.py flush --no-input
+python manage.py flush --no-input
 # python manage.py migrate
-# python manage.py collectstatic --no-input --clear
-
+python manage.py collectstatic --no-input --clear
+gunicorn  --bind 0.0.0.0:8000 hello_django.wsgi:application
 exec "$@"
