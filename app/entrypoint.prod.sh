@@ -10,8 +10,5 @@
 
 #     echo "PostgreSQL started"
 # fi
-# python manage.py flush --no-input
-# python manage.py migrate
-# python manage.py collectstatic --no-input --clear
 gunicorn  --bind 0.0.0.0:8000 hello_django.wsgi:application
 exec "$@"
